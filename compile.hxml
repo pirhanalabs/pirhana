@@ -1,0 +1,12 @@
+-cp src
+
+-lib heaps
+-lib hlsdl
+
+-hl bin/client.hl
+
+-main Main
+-D windowTitle=Pirhana
+-D windowSize=960x540
+
+-D debug
