@@ -1,5 +1,9 @@
 package pirhana.ecs;
 
+interface ISystem{
+
+}
+
 class System{
     
     public function new(){
@@ -10,7 +14,7 @@ class System{
      * Initialization.
      * Template is used to allow world subclasses
      */
-    public function init<T:pirhana.ecs.World>(world:T):Void{
+    public function init(world:pirhana.ecs.World):Void{
 
     }
 
