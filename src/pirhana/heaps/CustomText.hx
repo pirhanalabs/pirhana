@@ -1,4 +1,4 @@
-package src.pirhana.heaps;
+package pirhana.heaps;
 
 import h2d.RenderContext;
 
