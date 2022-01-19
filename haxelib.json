@@ -4,9 +4,9 @@
 	"license": "MIT",
 	"tags": ["Heaps","Hashlink","package","pirhana"],
 	"description": "ECS System, modified from ZwodahS's library:\nhttps://gitlab.com/ZwodahS/haxe-zf/-/tree/master/src/zf\nto fit my own personal style",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"classPath": "src/",
-	"releasenote": "Gamepad controller fixes, other enhancements, Haxe ",
+	"releasenote": "",
 	"contributors": ["pirhanalabs"],
 	"dependencies": {}
 }
