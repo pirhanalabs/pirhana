@@ -112,7 +112,6 @@ class CustomText extends h2d.Object{
     }
 
     private function makeBouncyCharacter(character:String):TextCharacter{
-        return makeDefaultCharacter(character);
         var c = new BouncyTextCharacter(font, character, this);
         c.baseY = lastY;
         c.t += this.bouncyOffset;
