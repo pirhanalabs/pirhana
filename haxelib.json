@@ -4,9 +4,9 @@
 	"license": "MIT",
 	"tags": ["Heaps","Hashlink","package","pirhana"],
 	"description": "ECS System, modified from ZwodahS's library:\nhttps://gitlab.com/ZwodahS/haxe-zf/-/tree/master/src/zf\nto fit my own personal style",
-	"version": "1.1.4",
+	"version": "1.1.5",
 	"classPath": "src/",
-	"releasenote": "",
+	"releasenote": "animator has been added",
 	"contributors": ["pirhanalabs"],
 	"dependencies": {}
 }
