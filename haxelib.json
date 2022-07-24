@@ -3,7 +3,7 @@
 	"url" : "https://github.com/pirhanalabs/pirhana",
 	"license": "MIT",
 	"tags": ["Heaps","Hashlink","package","pirhana"],
-	"description": "ECS System, modified from ZwodahS's library:\nhttps://gitlab.com/ZwodahS/haxe-zf/-/tree/master/src/zf\nto fit my own personal style",
+	"description": "Toolkit library for my personal use",
 	"version": "1.1.8",
 	"classPath": "src/",
 	"releasenote": "graphics extension has been added",
