@@ -1,0 +1,43 @@
+{
+  "skipTerminateQuickPick": true,
+  "skipSwitchToOutput": false,
+  "skipErrorMessage": true,
+  "commands": [
+    {
+      "text": "✪ HL",
+      "tooltip": "Run HL",
+      "color": "default",
+      "command": "haxe compile.hl.hxml && hl bin/hl/client.hl",
+      "alignment": "left",
+      "skipTerminateQuickPick": false,
+      "priority": -2
+    },
+    {
+      "text": "✪ JS",
+      "tooltip": "Run JS",
+      "color": "default",
+      "command": "haxe compile.js.hxml && open index.html",
+      "alignment": "left",
+      "skipTerminateQuickPick": false,
+      "priority": -3
+    },
+    {
+      "text": "✪ PL",
+      "tooltip": "Publish Pirhana",
+      "color": "default",
+      "command": "zip -vr pirhana.zip haxelib.json src/ -x \"*.DS_Store\"",
+      "alignment": "right",
+      "skipTerminateQuickPick": false,
+      "priority": -1
+    },
+    {
+      "text": "✪ HL Build",
+      "tooltip": "Build HL Executable",
+      "color": "default",
+      "command": "haxe compile.hxml && haxelib run redistHelper compile.hxml -p \"myGame\"",
+      "alignment": "left",
+      "skipTerminateQuickPick": false,
+      "priority": -1
+    }
+  ]
+}
