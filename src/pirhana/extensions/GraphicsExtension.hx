@@ -1,4 +1,4 @@
-package pirhana.heaps;
+package pirhana.extensions;
 
 typedef Point = {
     x:Float,
