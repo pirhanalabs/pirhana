@@ -1,2 +1,6 @@
--cp src
 -lib heaps
+-lib hlsdl
+
+-cp src
+
+-main Test
