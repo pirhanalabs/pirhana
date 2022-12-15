@@ -26,7 +26,7 @@ class MathTools
         return Math.atan2(y1-y2, x1-x2);
     }
 
-    public static inline function pretty(x:Float, precision = 2){
+    public static inline function pretty(x:Float, precision = 2):Float{
         if (precision == 0)
             return Math.round(x);
         var d = Math.pow(10, precision);
@@ -99,7 +99,7 @@ class MathTools
         return n;
     }
 
-    public static inline function bezier3(t, a, b, c){
+    public static inline function bezier3(t:Float, a:Float, b:Float, c:Float){
         return (1 - t)*(1 - t)*a + 2*(1 - t)*t*b + t*t*c;
     }
 }

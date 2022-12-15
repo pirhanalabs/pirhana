@@ -1,6 +1,8 @@
 -lib heaps
 -lib hlsdl
 
+-hl bin/test.hl
+
 -cp src
 
 -main Test
