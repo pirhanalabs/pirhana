@@ -18,7 +18,7 @@ class Tween{
      * @param p progress percent (0-1)
      */
     public static function lerp(a:Float, b:Float, p:Float){
-        return a + (b - a) * p;
+        return MathTools.lerp(a, b, p);
     }
 
     public static function linear(p:Float){
