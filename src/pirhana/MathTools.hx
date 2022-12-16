@@ -49,7 +49,7 @@ class MathTools
 		return a[MathTools.irand(start, end)];
 	}
 
-	public static inline function distance(x1, y1, x2, y2)
+	public static inline function distance(x1:Float, y1:Float, x2:Float, y2:Float)
 	{
 		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 	}
