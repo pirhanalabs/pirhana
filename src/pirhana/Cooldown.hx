@@ -91,7 +91,7 @@ class Cooldown{
     public function addFTo(id:String, frames:Int){
         var cd = cds.get(id);
         if (cd != null){
-            cd.add(val);
+            cd.add(frames);
         }
     }
 
@@ -104,10 +104,13 @@ class Cooldown{
     }
 
     public function addS(id:String, seconds:Float, ?onFinish:Void->Void){
-        addFrame(id, Math.round(seconds * fps), onFinish);
+        addF(id, Math.round(seconds * fps), onFinish);
     }
 
     public function addF(id:String, frames:Int, ?onFinish:Void->Void){
+        if (has(id)){
+            remove(id);
+        }
         var cd = new CooldownItem(id, frames, onFinish);
         cds[id] = cd;
         all.push(cd);
@@ -129,8 +132,7 @@ class Cooldown{
                 if (cd.cb != null){
                     cd.cb();
                 }
-                cds.remove(cd.id);
-                all.remove(cd);
+                remove(cd.id);
             }
 
             cd.add(-tmod);

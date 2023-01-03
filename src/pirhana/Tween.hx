@@ -56,7 +56,7 @@ class Tween{
     public static function customSpike(a:TweenFn, b:TweenFn, p:Float){
         if (p < 0.5)
             return a(p / 0.5);
-        return b(flip(p / 0.5));
+        return b(flip(p) / 0.5);
     }
 
     public static function elasticEaseOut(p:Float){
@@ -71,11 +71,11 @@ class Tween{
         return lerp(elasticEaseIn(p), elasticEaseOut(p), p);
     }
 
-    public static function bounceEaseOut(p:Float){
+    public static function bounceEaseOut(x:Float){
         var n1 = 7.5625;
         var d1 = 2.75;
         if (x < 1 / d1)
-            return n1 * p * p;
+            return n1 * x * x;
         if (x < 2 / d1)
             return n1 * (x -= 1.5 / d1) * x + 0.75;
         if (x < 2.5 / d1)
