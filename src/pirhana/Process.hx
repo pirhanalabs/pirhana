@@ -1,3 +1,5 @@
+package pirhana;
+
 /**
  * Simplified deepnight's lib Process class.
  * if you want to use it, I recommend looking

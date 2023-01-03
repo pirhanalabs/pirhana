@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"tags": ["Heaps","Hashlink","package","pirhana"],
 	"description": "Toolkit library for my personal use",
-	"version": "1.1.22",
+	"version": "1.1.23",
 	"classPath": "src/",
 	"releasenote": "",
 	"contributors": ["pirhanalabs"],
