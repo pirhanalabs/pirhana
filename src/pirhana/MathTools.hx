@@ -23,7 +23,7 @@ class MathTools
     }
 
     public static inline function angle(x1:Float, y1:Float, x2:Float, y2:Float){
-        return Math.atan2(y1-y2, x1-x2);
+        return Math.atan2(y2-y1, x2-x1);
     }
 
     public static inline function pretty(x:Float, precision = 2):Float{
@@ -91,12 +91,16 @@ class MathTools
     /**
      * modulo supporting negative values
      */
-    inline public static function mod(n:Float, mod:Float){
+    public inline static function mod(n:Float, mod:Float){
         while (n > mod)
             n -= mod*2;
         while (n < -mod)
             n += mod*2;
         return n;
+    }
+
+    public static inline function range(val:Float, omin:Float, omax:Float, nmin:Float, nmax:Float){
+        return (((val-omin)*(nmax-nmin)) / (omax - omin)) + nmin;
     }
 
     public static inline function bezier3(t:Float, a:Float, b:Float, c:Float){
