@@ -25,4 +25,12 @@ class IntExtension
 			return me + Std.int(range * ((min - me) / range + 1)) - 1;
 		return min + (me - min) % range;
 	}
+
+	public static function above(me:Int, min:Int){
+		return me < min ? min : me;
+	}
+
+	public static function under(me:Int, max:Int){
+		return me > max ? max : me;
+	}
 }
