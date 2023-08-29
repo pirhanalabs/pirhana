@@ -19,4 +19,12 @@ class FloatExtension
 	{
 		return Math.floor(me);
 	}
+
+	public static function above(me:Float, min:Float){
+		return me < min ? min : me;
+	}
+
+	public static function under(me:Float, max:Float){
+		return me > max ? max : me;
+	}
 }
