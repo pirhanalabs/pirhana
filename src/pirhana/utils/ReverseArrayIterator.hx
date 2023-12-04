@@ -1,4 +1,4 @@
-package pirhana;
+package pirhana.utils;
 
 class ReverseArrayIterator<T>{
 

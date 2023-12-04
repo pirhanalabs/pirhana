@@ -1,4 +1,4 @@
-package pirhana.message;
+package pirhana.utils.message;
 
 interface IMessage{
     function getType():String;

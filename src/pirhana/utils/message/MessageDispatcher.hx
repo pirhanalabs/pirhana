@@ -1,4 +1,4 @@
-package pirhana.message;
+package pirhana.utils.message;
 
 class MessageDispatcher{
 
@@ -31,7 +31,7 @@ class MessageDispatcher{
         }
     }
 
-    public function dispatch(message:IMessage, dispatchType: pirhana.message.DispatchType = QueueEnd){
+    public function dispatch(message:IMessage, dispatchType: pirhana.utils.message.DispatchType = QueueEnd){
         if (messageQueue.length == 0) 
             dispatchType = Immediate;
         

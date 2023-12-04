@@ -32,6 +32,9 @@ class CooldownItem{
     }
 }
 
+/**
+    Cooldown System from Deepnight
+**/
 class Cooldown{
 
     var fps : Int;

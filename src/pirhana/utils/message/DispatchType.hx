@@ -1,4 +1,4 @@
-package pirhana.message;
+package pirhana.utils.message;
 
 enum DispatchType{
     Immediate;

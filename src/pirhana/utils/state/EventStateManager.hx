@@ -1,10 +1,14 @@
-package pirhana.state;
+package pirhana.utils.state;
 
 class EventStateManager<T:IEventState>{
 
     var queue:List<T>;
     var current:T;
 
+    /**
+        An event queue system that triggers one after the other.
+        If an event is finished on the same frame it started, it will not take up a frame.
+    **/
     public function new(){
         queue = new List();
     }

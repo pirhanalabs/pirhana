@@ -1,4 +1,4 @@
-package pirhana.shaders;
+package pirhana.heaps.shaders;
 
 class Glint extends hxsl.Shader {
 

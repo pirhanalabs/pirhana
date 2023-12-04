@@ -1,4 +1,4 @@
-package pirhana.state;
+package pirhana.utils.state;
 
 class StateManager<T:IState>{
 

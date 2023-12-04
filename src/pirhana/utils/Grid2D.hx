@@ -1,4 +1,4 @@
-package pirhana;
+package pirhana.utils;
 
 class Grid2D<T>{
 

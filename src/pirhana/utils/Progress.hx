@@ -23,7 +23,7 @@ class Progress{
     }
 
     public function addPercent(p:Float){
-        add(p * max);
+        add(Std.int(p * max));
     }
 
     public function add(val:Int){
