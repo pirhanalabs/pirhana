@@ -55,7 +55,7 @@ class MathTools
     /**
         Randomly picks an integer between min and max, seeded.
     **/
-    public static function seeded_irand(min:Float, max:Float, seed:hxd.Rand){
+    public static function seeded_irand(min:Int, max:Int, seed:hxd.Rand){
         return Math.floor(seed.rand() * (max-min)) + min;
     }
 
