@@ -63,7 +63,11 @@ class EventStateManager<T:IEventState>{
                 onEventFinished(current);
             }
         }
+    }
 
-
+    public function postupdate(){
+        if (current != null){
+            current.postupdate();
+        }
     }
 }
