@@ -39,16 +39,17 @@ class EventStateManager<T:IEventState>{
     public function update(frame:Frame){
         if (queue.length == 0 && current == null) return;
 
+        var success = false;
+
         if (current != null){
             if (current.isFinished()){
                 onEventFinished(current);
                 current = null;
+                success = true;
             }else{
                 current.update(frame);
             }
         }
-
-        var success = false;
 
         while (success){
             current = queue.pop();
