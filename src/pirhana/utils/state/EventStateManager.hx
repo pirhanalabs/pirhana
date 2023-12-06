@@ -36,7 +36,7 @@ class EventStateManager<T:IEventState>{
 
     }
 
-    public function update(tmod:Float){
+    public function update(frame:Frame){
         if (queue.length == 0 && current == null) return;
 
         if (current != null){
@@ -44,7 +44,7 @@ class EventStateManager<T:IEventState>{
                 onEventFinished(current);
                 current = null;
             }else{
-                current.update(tmod);
+                current.update(frame);
             }
         }
 
