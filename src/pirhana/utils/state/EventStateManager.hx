@@ -39,11 +39,11 @@ class EventStateManager<T:IEventState>{
     }
 
     public function hasEvent(){
-        return length > 0;
+        return current != null || length > 0;
     }
 
     private inline function get_length(){
-        return queue.length;
+        return queue.length + (current == null) 0 : 1;
     }
 
     public function update(frame:Frame){
