@@ -70,8 +70,8 @@ class EventStateManager<T:IEventState>{
             }
             current.onEnter();
             onEventEntered(current);
-            success = !current.isFinished();
-            if (!success){
+            success = current.isFinished();
+            if (success){
                 onEventFinished(current);
             }
         }
