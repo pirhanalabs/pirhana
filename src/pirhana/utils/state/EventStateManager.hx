@@ -43,7 +43,7 @@ class EventStateManager<T:IEventState>{
     }
 
     private inline function get_length(){
-        return queue.length + (current == null) 0 : 1;
+        return queue.length + (current == null ? 0 : 1);
     }
 
     public function update(frame:Frame){
