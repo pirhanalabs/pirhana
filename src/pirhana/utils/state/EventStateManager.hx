@@ -49,7 +49,7 @@ class EventStateManager<T:IEventState>{
     public function update(frame:Frame){
         if (queue.length == 0 && current == null) return;
 
-        var success = false;
+        var success = true;
 
         if (current != null){
             if (current.isFinished()){
@@ -58,6 +58,7 @@ class EventStateManager<T:IEventState>{
                 success = true;
             }else{
                 current.update(frame);
+                success = false;
             }
         }
 
