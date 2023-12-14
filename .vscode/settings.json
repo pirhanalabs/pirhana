@@ -6,8 +6,8 @@
 		"editor.formatOnSave": false,
 		"editor.formatOnPaste": false,
 		"editor.codeActionsOnSave": {
-			"source.sortImports": false
-		}
+            "source.sortImports": "never"
+        }
 	},
 	"haxe.enableExtendedIndentation": false,
 

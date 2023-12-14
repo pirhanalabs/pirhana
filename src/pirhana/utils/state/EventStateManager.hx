@@ -5,6 +5,8 @@ class EventStateManager<T:IEventState>{
     var queue:List<T>;
     var current:T;
 
+    public var length (get, never):Int;
+
     /**
         An event queue system that triggers one after the other.
         If an event is finished on the same frame it started, it will not take up a frame.
@@ -34,6 +36,14 @@ class EventStateManager<T:IEventState>{
     /** triggers whenever all events in queue are done. **/
     public dynamic function onAllEventFinished(){
 
+    }
+
+    public function hasEvent(){
+        return length > 0;
+    }
+
+    private inline function get_length(){
+        return queue.length;
     }
 
     public function update(frame:Frame){
