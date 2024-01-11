@@ -1,144 +1,169 @@
-package pirhana;
+package pirhana.utils;
 
-class CooldownItem{
+private class CooldownItem
+{
+	public var id:String;
+	public var cur:Float;
+	public var max:Float;
+	public var cb:Void->Void;
+	public var pause:Bool;
 
-    public var paused : Bool = false;
-    public var id : String;
-    public var init : Float;
-    public var curr : Float;
-    public var cb:Void->Void;
+	public function new(id, frames, cb)
+	{
+		this.id = id;
+		this.cur = 0;
+		this.max = frames;
+		this.cb = cb;
+		pause = false;
+	}
 
-    public function new(id:String, frames:Int, cb:Void->Void){
-        this.id = id;
-        this.init = frames;
-        this.curr = frames;
-        this.cb = cb;
-    }
+	public function getRatio():Float
+	{
+		if (max == -1)
+		{
+			return 1; // always return full if infinite
+		}
+		return cur / max;
+	}
 
-    public function add(val:Float){
-        if (val < 0){
-            this.curr = Math.max(0, this.curr + val);
-        }else{
-            this.curr = Math.min(0, this.curr + val);
-        }
-    }
-
-    public function getRatio(){
-        return curr == 0 ? 0 : curr / init;
-    }
-
-    public function getProgress(){
-        return 1 - getRatio();
-    }
+	public function isCompleted()
+	{
+		return getRatio() == 1;
+	}
 }
 
-/**
-    Cooldown System from Deepnight
-**/
-class Cooldown{
+class Cooldown
+{
+	private final FPS:Int;
 
-    var fps : Int;
-    var cds : Map<String, CooldownItem> = [];
-    var all : List<CooldownItem> = new List();
+	private var cds:Map<String, CooldownItem>;
 
-    public function new(fps:Int){
-        this.fps = fps;
-    }
+	public function new(fps:Int)
+	{
+		FPS = fps;
+		cds = new Map();
+	}
 
-    public function has(id:String){
-        return cds.exists(id);
-    }
+	public function createF(id:String, frames:Int, ?cb:Void->Void)
+	{
+		var cd = new CooldownItem(id, frames, cb == null ? emptycb : cb);
+		cds.set(id, cd);
+		return cd;
+	}
 
-    public function getRatio(id:String){
-        var cd = cds.get(id);
-        if (cd != null){
-            return cd.getRatio();
-        }
-        return 0;
-    }
+	public function createS(id:String, seconds:Float, ?cb:Void->Void)
+	{
+		return createF(id, Math.floor(seconds * FPS), cb);
+	}
 
-    public function getProgress(id:String){
-        var cd = cds.get(id);
-        if (cd != null){
-            return cd.getProgress();
-        }
-        return 0;
-    }
+	public function has(id:String)
+	{
+		return cds.exists(id);
+	}
 
-    public function remove(id:String){
-        var cd = cds.get(id);
-        if (cd != null){
-            cds.remove(id);
-            all.remove(cd);
-        }
-    }
+	public function getRatio(id:String):Float
+	{
+		var cd = cds.get(id);
+		if (cd == null || cd.max == -1)
+		{
+			return 0;
+		}
+		return cd.getRatio();
+	}
 
-    public function pause(id:String){
-        var cd = cds.get(id);
-        if (cd != null){
-            cd.paused = true;
-        }
-    }
+	public function addF(id:String, frames:Int)
+	{
+		if (has(id))
+		{
+			var cd = cds.get(id);
+			cd.max += frames;
+		}
+	}
 
-    public function resume(id:String){
-        var cd = cds.get(id);
-        if (cd != null){
-            cd.paused = false;
-        }
-    }
+	public function addS(id:String, seconds:Float, ratio:Bool)
+	{
+		if (has(id))
+		{
+			cds.get(id).max += Math.floor(seconds * FPS);
+		}
+	}
 
-    /**
-     * pos val increases the time, up to initial time.
-     * neg val decreases the time, up to 0.
-     */
-    public function addFTo(id:String, frames:Int){
-        var cd = cds.get(id);
-        if (cd != null){
-            cd.add(frames);
-        }
-    }
+	public function reset(id:String)
+	{
+		if (has(id))
+		{
+			cds.get(id).cur = 0;
+		}
+	}
 
-    /**
-     * pos val increases the time, up to initial time.
-     * neg val decreases the time, up to 0.
-     */
-    public function addSTo(id:String, seconds:Float){
-        addFTo(id, Math.round(seconds * fps));
-    }
+	public function resetAll()
+	{
+		for (id => cd in cds)
+		{
+			cd.cur = 0;
+		}
+	}
 
-    public function addS(id:String, seconds:Float, ?onFinish:Void->Void){
-        addF(id, Math.round(seconds * fps), onFinish);
-    }
+	public function pause(id:String)
+	{
+		if (has(id))
+		{
+			cds.get(id).pause = true;
+		}
+	}
 
-    public function addF(id:String, frames:Int, ?onFinish:Void->Void){
-        if (has(id)){
-            remove(id);
-        }
-        var cd = new CooldownItem(id, frames, onFinish);
-        cds[id] = cd;
-        all.push(cd);
-    }
+	public function pauseAll()
+	{
+		for (id => cd in cds)
+		{
+			cd.pause = true;
+		}
+	}
 
-    public function update(tmod:Float){
-        for (cd in all){
+	public function resume(id:String)
+	{
+		if (has(id))
+		{
+			cds.get(id).pause = false;
+		}
+	}
 
-            if (cd.paused) 
-                continue;
+	public function resumeAll()
+	{
+		for (id => cd in cds)
+		{
+			cd.pause = false;
+		}
+	}
 
-            // if infinite
-            if (cd.init < 0)
-                continue;
+	public function remove(id:String)
+	{
+		cds.remove(id);
+	}
 
-            // before time calculations so that we get
-            // an extra frame after the cd is done.
-            if (cd.getRatio() == 0){
-                if (cd.cb != null){
-                    cd.cb();
-                }
-                remove(cd.id);
-            }
+	public function clear()
+	{
+		cds.clear();
+	}
 
-            cd.add(-tmod);
-        }
-    }
+	private final function emptycb() {}
+
+	public function update(frame:Frame)
+	{
+		for (id => cd in cds)
+		{
+			if (cd.isCompleted())
+			{
+				cd.cb();
+				cds.remove(id);
+			}
+
+			if (cd.pause || cd.max < 0)
+			{
+				continue;
+			}
+
+			cd.cur += Math.pow(1, frame.tmod);
+		}
+	}
 }
