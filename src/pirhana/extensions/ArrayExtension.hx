@@ -13,4 +13,12 @@ class ArrayExtension{
                   fn(val);
             }
       }
+
+      public static function pick<T>(a:Array<T>, ?seed:hxd.Rand){
+            if (seed != null){
+                  return MathTools.seeded_pick(a, seed);
+            }else{
+                  return MathTools.pick(a);
+            }
+      }
 }
