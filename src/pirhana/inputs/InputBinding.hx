@@ -17,6 +17,10 @@ class InputBinding
 		this.button = button;
 	}
 
+	public function getName(){
+		return manager.getString(this);
+	}
+
 	public function isPressed()
 	{
 		if (manager.pad.connected)

@@ -108,4 +108,9 @@ class InputManager
 	{
 		// implement this
 	}
+
+	public function getString(binding:InputBinding){
+		// for now only returns with keyboard inputs. needs to support gamepad too
+		return hxd.Key.getKeyName(binding.key);
+	}
 }

@@ -2,7 +2,7 @@ package pirhana;
 
 class MathTools
 {
-
+    
     inline public static final PI_HALF = 1.5707963267948966;
     inline public static final PI   = 3.141592653589793;
     inline public static final PI2  = 6.283185307179586;
