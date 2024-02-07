@@ -77,6 +77,7 @@ class Game
 		screens.current.update(frame);
 
 		for (screen in screens.screens){
+			screen.permupdate(frame);
 			screen.postupdate();
 		}
 		

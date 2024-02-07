@@ -22,6 +22,14 @@ class Screen
 	}
 
 	@:allow(pirhana.Game)
+	function permupdate(frame:Frame):Void{
+		// override this in subclasses.
+		// this is necessary for updating certain game
+		// aspects regardless if we are the active screen
+		// or not.
+	}
+
+	@:allow(pirhana.Game)
 	function postupdate():Void
 	{
 		// override this in subclasses
