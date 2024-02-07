@@ -75,7 +75,11 @@ class Game
 	{
 		frame.update();
 		screens.current.update(frame);
-		screens.current.postupdate();
+
+		for (screen in screens.screens){
+			screen.postupdate();
+		}
+		
 		camera.update(frame);
 	}
 

@@ -7,7 +7,7 @@ private class EmptyScreen extends Screen
 
 class ScreenManager
 {
-	var screens:Array<Screen>;
+	public var screens:Array<Screen>;
 
 	public var current(get, never):Screen;
 	public var previous(get, never):Screen;
