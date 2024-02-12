@@ -2,6 +2,15 @@ package pirhana.utils.message;
 
 class MessageDispatcher{
 
+    private static var _instance:MessageDispatcher;
+
+    public static final function get(){
+        if (_instance == null){
+            _instance = new MessageDispatcher();
+        }
+        return _instance;
+    }
+
     var listeners : Map<String, Array<Dynamic>>;
     var messageQueue : List<IMessage>;
     var messageDispatching : Array<IMessage>;
