@@ -74,10 +74,14 @@ class Game
 	private function update()
 	{
 		frame.update();
+
+		for (screen in screens.screens){
+			screen.permupdate(frame);
+		}
+
 		screens.current.update(frame);
 
-		for (screen in new pirhana.utils.ReverseArrayIterator(screens.screens)){
-			screen.permupdate(frame);
+		for (screen in screens.screens){
 			screen.postupdate();
 		}
 		
