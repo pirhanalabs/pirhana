@@ -76,7 +76,7 @@ class Game
 		frame.update();
 		screens.current.update(frame);
 
-		for (screen in screens.screens){
+		for (screen in new pirhana.utils.ReverseArrayIterator(screens.screens)){
 			screen.permupdate(frame);
 			screen.postupdate();
 		}
