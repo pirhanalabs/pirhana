@@ -4,7 +4,7 @@ class MessageDispatcher{
 
     private static var _instance:MessageDispatcher;
 
-    public static final function get(){
+    public static function get(){
         if (_instance == null){
             _instance = new MessageDispatcher();
         }
