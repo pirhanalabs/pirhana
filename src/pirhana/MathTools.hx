@@ -184,4 +184,12 @@ class MathTools
     public static inline function bezier3(t:Float, a:Float, b:Float, c:Float){
         return (1 - t)*(1 - t)*a + 2*(1 - t)*t*b + t*t*c;
     }
+
+    /**
+        allow to center multiple elements.
+    **/
+    public static function layout(item_size:Float, num_items:Int, pos:Int)
+    {
+        return (-item_size * (num_items - 1) * 0.5) + (item_size * pos);
+    }
 }
