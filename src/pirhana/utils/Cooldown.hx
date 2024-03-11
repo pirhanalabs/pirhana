@@ -154,8 +154,8 @@ class Cooldown
 		{
 			if (cd.isCompleted())
 			{
-				cd.cb();
 				cds.remove(id);
+				cd.cb();
 			}
 
 			if (cd.pause || cd.max < 0)
