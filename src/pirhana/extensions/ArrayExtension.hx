@@ -8,6 +8,12 @@ class ArrayExtension{
             }
       }
 
+      public static function ieach<T>(a:Array<T>, fn:T->Int->Void){
+            for (i in 0 ... a.length){
+                  fn(val, i);
+            }
+      }
+
       public static function eachsafe<T>(a:Array<T>, fn:T->Void){
             for (val in a.iterator()){
                   fn(val);
