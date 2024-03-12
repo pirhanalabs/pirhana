@@ -10,6 +10,7 @@ class ArrayExtension{
 
       public static function ieach<T>(a:Array<T>, fn:T->Int->Void){
             for (i in 0 ... a.length){
+                  var val = a[i];
                   fn(val, i);
             }
       }
