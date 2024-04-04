@@ -12,6 +12,15 @@ class Application extends hxd.App
 	**/
 	public static var VIEW_SCALE(get, null):Float;
 
+
+	public static var INTEGER_SCALING = true;
+
+	/** Viewport x offset **/
+	public static var OFFSET_X (get, null):Float;
+
+	/** Viewport y offset **/
+	public static var OFFSET_Y (get, null):Float;
+
 	/**
 		Viewport width.
 	**/
@@ -157,10 +166,23 @@ class Application extends hxd.App
 
 	private inline static function get_VIEW_SCALE()
 	{
-		if (VIEW_WID > VIEW_HEI)
+		var scaleX = game.window.width / Application.VIEW_WID;
+		var scaleY = game.window.height / Application.VIEW_HEI;
+		var scale = 0;
+		if (scaleX < scaleY)
 		{
-			return Game.instance.app.s2d.viewportScaleY;
+			scale = scaleX;
 		}
-		return Game.instance.app.s2d.viewportScaleX;
+		scale = scaleY;
+
+		return INTEGER_SCALING ? Math.floor(scale) : scale;
+	}
+
+	private inline static function get_OFFSET_X(){
+		return (game.window.width - VIEW_WID * VIEW_SCALE);
+	}
+
+	private inline static function get_OFFSET_Y(){
+		return (game.window.height - VIEW_HEI * VIEW_SCALE);
 	}
 }
