@@ -84,7 +84,7 @@ class Application extends hxd.App {
 		super.init();
 
 		// initialize scalemode
-		s2d.scaleMode = LetterBox(VIEW_WID, VIEW_HEI, intscale, Center, Center);
+		// s2d.scaleMode = LetterBox(VIEW_WID, VIEW_HEI, intscale, Center, Center);
 
 		_initEngine();
 
