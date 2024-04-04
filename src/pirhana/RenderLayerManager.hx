@@ -123,6 +123,8 @@ class RenderLayerManager {
 		scroller.scaleY = Application.VIEW_SCALE;
 		screen.scaleX = Application.VIEW_SCALE;
 		screen.scaleY = Application.VIEW_SCALE;
+		screen.x = Application.OFFSET_X * 0.5;
+		screen.y = Application.OFFSET_Y * 0.5;
 
 		cameraEffectsPlacer.x = Application.VIEW_WID_2 * Application.VIEW_SCALE + Application.OFFSET_X * 0.5;
 		cameraEffectsPlacer.y = Application.VIEW_HEI_2 * Application.VIEW_SCALE + Application.OFFSET_Y * 0.5;
