@@ -1,7 +1,6 @@
 package pirhana;
 
-class Application extends hxd.App
-{
+class Application extends hxd.App {
 	/**
 		Wanted FPS.
 	**/
@@ -12,14 +11,13 @@ class Application extends hxd.App
 	**/
 	public static var VIEW_SCALE(get, null):Float;
 
-
 	public static var INTEGER_SCALING = true;
 
 	/** Viewport x offset **/
-	public static var OFFSET_X (get, null):Float;
+	public static var OFFSET_X(get, null):Float;
 
 	/** Viewport y offset **/
-	public static var OFFSET_Y (get, null):Float;
+	public static var OFFSET_Y(get, null):Float;
 
 	/**
 		Viewport width.
@@ -63,10 +61,8 @@ class Application extends hxd.App
 
 		override the `start()` method to do extra initialization stuff.
 	**/
-	private function new(viewportw, viewporth, intscale = false, fps = 60)
-	{
-		if (_instance != null)
-		{
+	private function new(viewportw, viewporth, intscale = false, fps = 60) {
+		if (_instance != null) {
 			throw 'There can be only one instance of Application';
 		}
 		_instance = this;
@@ -84,8 +80,7 @@ class Application extends hxd.App
 	/**
 		Initialization phase. Engine setup. Scalemode.
 	**/
-	override final function init()
-	{
+	override final function init() {
 		super.init();
 
 		// initialize scalemode
@@ -94,17 +89,22 @@ class Application extends hxd.App
 		_initEngine();
 
 		game = Game.create(this);
-		haxe.Timer.delay(function()
-		{
+		haxe.Timer.delay(function() {
 			start();
 		}, 1);
+	}
+
+	override function onResize() {
+		super.onResize();
+		if (Game.instance != null) {
+			Game.instance.onResize();
+		}
 	}
 
 	/**
 		Initialize the engine.
 	**/
-	function _initEngine()
-	{
+	function _initEngine() {
 		engine.backgroundColor = 0xff << 24 | 0x111133;
 
 		#if hl
@@ -133,8 +133,7 @@ class Application extends hxd.App
 	/**
 		Handle crashes on HL target.
 	**/
-	private function onCrash(err:Dynamic)
-	{
+	private function onCrash(err:Dynamic) {
 		#if hl
 		var title = 'Fatal Error';
 		var msg = 'Error:${Std.string(err)}';
@@ -150,39 +149,30 @@ class Application extends hxd.App
 	/**
 		Override this to do initialization work in subclass
 	**/
-	private function start()
-	{
+	private function start() {
 		// override this in Main
 	}
 
 	/**
 		Main update loop.
 	**/
-	override function update(dt:Float)
-	{
+	override function update(dt:Float) {
 		super.update(dt);
 		game.update();
 	}
 
-	private inline static function get_VIEW_SCALE():Float
-	{
+	private inline static function get_VIEW_SCALE():Float {
 		var scaleX = Game.instance.window.width / Application.VIEW_WID;
 		var scaleY = Game.instance.window.height / Application.VIEW_HEI;
-		var scale = 0.0;
-		if (scaleX < scaleY)
-		{
-			scale = scaleX;
-		}
-		scale = scaleY;
-
+		var scale = hxd.Math.min(scaleX, scaleY);
 		return INTEGER_SCALING ? Math.floor(scale) : scale;
 	}
 
-	private inline static function get_OFFSET_X(){
+	private inline static function get_OFFSET_X() {
 		return (Game.instance.window.width - VIEW_WID * VIEW_SCALE);
 	}
 
-	private inline static function get_OFFSET_Y(){
+	private inline static function get_OFFSET_Y() {
 		return (Game.instance.window.height - VIEW_HEI * VIEW_SCALE);
 	}
 }

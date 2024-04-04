@@ -7,8 +7,7 @@ import pirhana.inputs.InputManager;
 	I have since then adapted it to my taste.
 	Check out their game at https://github.com/ddmills/odyssey/tree/master
 **/
-class Game
-{
+class Game {
 	/**
 		Singleton instance of Game
 	**/
@@ -17,10 +16,8 @@ class Game
 	/**
 		Creates a Game instance. This should normally only be called inside Application.hx
 	**/
-	public static function create(app:hxd.App)
-	{
-		if (instance == null)
-		{
+	public static function create(app:hxd.App) {
+		if (instance == null) {
 			new Game(app);
 		}
 		return instance;
@@ -50,8 +47,7 @@ class Game
 	/**
 		Engine inspired heavily on ddmills' Odyssey.
 	**/
-	private final function new(app:hxd.App)
-	{
+	private final function new(app:hxd.App) {
 		instance = this;
 		this.app = app;
 		layers = new RenderLayerManager();
@@ -60,36 +56,39 @@ class Game
 		frame = new Frame();
 		camera = new Camera();
 		app.s2d.addChild(layers.ob);
+		onResize();
 	}
 
 	/**
 		Fast access to layers.render for ease of use.
 	**/
-	public inline function render(layer:RenderLayerManager.RenderLayerType, ob:h2d.Object)
-	{
+	public inline function render(layer:RenderLayerManager.RenderLayerType, ob:h2d.Object) {
 		layers.render(layer, ob);
 	}
 
 	@:allow(pirhana.Application)
-	private function update()
-	{
+	private function onResize() {
+		layers.updateBorders();
+	}
+
+	@:allow(pirhana.Application)
+	private function update() {
 		frame.update();
 
-		for (screen in screens.screens){
+		for (screen in screens.screens) {
 			screen.permupdate(frame);
 		}
 
 		screens.current.update(frame);
 
-		for (screen in screens.screens){
+		for (screen in screens.screens) {
 			screen.postupdate();
 		}
-		
+
 		camera.update(frame);
 	}
 
-	inline function get_window()
-	{
+	inline function get_window() {
 		return hxd.Window.getInstance();
 	}
 }
