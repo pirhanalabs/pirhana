@@ -164,11 +164,11 @@ class Application extends hxd.App
 		game.update();
 	}
 
-	private inline static function get_VIEW_SCALE()
+	private inline static function get_VIEW_SCALE():Float
 	{
 		var scaleX = Game.instance.window.width / Application.VIEW_WID;
 		var scaleY = Game.instance.window.height / Application.VIEW_HEI;
-		var scale = 0;
+		var scale = 0.0;
 		if (scaleX < scaleY)
 		{
 			scale = scaleX;
