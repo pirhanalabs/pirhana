@@ -166,8 +166,8 @@ class Application extends hxd.App
 
 	private inline static function get_VIEW_SCALE()
 	{
-		var scaleX = game.window.width / Application.VIEW_WID;
-		var scaleY = game.window.height / Application.VIEW_HEI;
+		var scaleX = Game.instance.window.width / Application.VIEW_WID;
+		var scaleY = Game.instance.window.height / Application.VIEW_HEI;
 		var scale = 0;
 		if (scaleX < scaleY)
 		{
@@ -179,10 +179,10 @@ class Application extends hxd.App
 	}
 
 	private inline static function get_OFFSET_X(){
-		return (game.window.width - VIEW_WID * VIEW_SCALE);
+		return (Game.instance.window.width - VIEW_WID * VIEW_SCALE);
 	}
 
 	private inline static function get_OFFSET_Y(){
-		return (game.window.height - VIEW_HEI * VIEW_SCALE);
+		return (Game.instance.window.height - VIEW_HEI * VIEW_SCALE);
 	}
 }
