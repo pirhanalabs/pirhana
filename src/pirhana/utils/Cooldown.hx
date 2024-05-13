@@ -169,7 +169,7 @@ class Cooldown
 					cds.set(cd.onDone.id, cd.onDone);
 				}
 				if (cb.cd != null){
-					cd.cb();
+					cb.cd();
 				}
 			}
 
