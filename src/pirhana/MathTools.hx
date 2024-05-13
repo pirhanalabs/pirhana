@@ -192,4 +192,20 @@ class MathTools
     {
         return (-item_size * (num_items - 1) * 0.5) + (item_size * pos);
     }
+
+    /**
+        Returns the square root of a number
+    **/
+    private function sqrt(num:Int):Float
+        {
+            var t = 0.0;
+            var r = num * 0.5;
+            do
+            {
+                t = r;
+                r = (t + (num / t)) * 0.5;
+            }
+            while ((t - r) != 0);
+            return r;
+        }
 }

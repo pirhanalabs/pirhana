@@ -7,6 +7,7 @@ private class CooldownItem
 	public var max:Float;
 	public var cb:Void->Void;
 	public var pause:Bool;
+	public var onDone:CooldownItem;
 
 	public function new(id, frames, cb)
 	{
@@ -15,6 +16,14 @@ private class CooldownItem
 		this.max = frames;
 		this.cb = cb;
 		pause = false;
+	}
+
+	public function thenS(id:String, seconds:Float, cb:Void->Void, fps:Float){
+		thenF(id, seconds * fps, cb);
+	}
+
+	public function thenF(id:String, frames:Float, cb:Void->Void){
+		onDone = new CooldownItem(id, frames, cb);
 	}
 
 	public function getRatio():Float
@@ -34,7 +43,7 @@ private class CooldownItem
 
 class Cooldown
 {
-	private final FPS:Int;
+	public final FPS:Int;
 
 	private var cds:Map<String, CooldownItem>;
 
@@ -155,6 +164,9 @@ class Cooldown
 			if (cd.isCompleted())
 			{
 				cds.remove(id);
+				if (cd.onDone != null){
+					cds.set(cd.onDone.id, cd.onDone);
+				}
 				cd.cb();
 			}
 
