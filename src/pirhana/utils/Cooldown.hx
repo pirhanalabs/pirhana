@@ -19,11 +19,12 @@ private class CooldownItem
 	}
 
 	public function thenS(id:String, seconds:Float, cb:Void->Void, fps:Float){
-		thenF(id, seconds * fps, cb);
+		return thenF(id, seconds * fps, cb);
 	}
 
 	public function thenF(id:String, frames:Float, cb:Void->Void){
 		onDone = new CooldownItem(id, frames, cb);
+		return onDone;
 	}
 
 	public function getRatio():Float
