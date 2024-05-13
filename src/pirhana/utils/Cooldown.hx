@@ -168,7 +168,9 @@ class Cooldown
 				if (cd.onDone != null){
 					cds.set(cd.onDone.id, cd.onDone);
 				}
-				cd.cb();
+				if (cb.cd != null){
+					cd.cb();
+				}
 			}
 
 			if (cd.pause || cd.max < 0)
