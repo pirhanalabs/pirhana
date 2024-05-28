@@ -8,22 +8,24 @@ private class CooldownItem
 	public var cb:Void->Void;
 	public var pause:Bool;
 	public var onDone:CooldownItem;
+	private var fps:Int;
 
-	public function new(id, frames, cb)
+	public function new(id, frames, cb, fps = 60)
 	{
 		this.id = id;
 		this.cur = 0;
 		this.max = frames;
 		this.cb = cb;
+		this.fps = fps;
 		pause = false;
 	}
 
-	public function thenS(id:String, seconds:Float, cb:Void->Void, fps:Float){
+	public function thenS(id:String, seconds:Float, cb:Void->Void){
 		return thenF(id, seconds * fps, cb);
 	}
 
 	public function thenF(id:String, frames:Float, cb:Void->Void){
-		onDone = new CooldownItem(id, frames, cb);
+		onDone = new CooldownItem(id, frames, cb, fps);
 		return onDone;
 	}
 
@@ -56,7 +58,7 @@ class Cooldown
 
 	public function createF(id:String, frames:Int, ?cb:Void->Void)
 	{
-		var cd = new CooldownItem(id, frames, cb == null ? emptycb : cb);
+		var cd = new CooldownItem(id, frames, cb == null ? emptycb : cb, FPS);
 		cds.set(id, cd);
 		return cd;
 	}
