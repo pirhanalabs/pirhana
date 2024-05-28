@@ -6,6 +6,8 @@ class Application extends hxd.App {
 	**/
 	public static var FPS(default, null):Int;
 
+	public static var FIXED_FPS(default, null):Int;
+
 	/**
 		Viewport scale.
 	**/
@@ -61,13 +63,14 @@ class Application extends hxd.App {
 
 		override the `start()` method to do extra initialization stuff.
 	**/
-	private function new(viewportw, viewporth, intscale = false, fps = 60) {
+	private function new(viewportw, viewporth, intscale = false, fps = 60, fixedfps = 30) {
 		if (_instance != null) {
 			throw 'There can be only one instance of Application';
 		}
 		_instance = this;
 
 		FPS = fps;
+		FIXED_FPS = fixedfps;
 		VIEW_WID = viewportw;
 		VIEW_HEI = viewporth;
 		VIEW_WID_2 = VIEW_WID * 0.5;

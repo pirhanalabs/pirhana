@@ -71,16 +71,24 @@ class Game {
 		layers.updateBorders();
 	}
 
+	private var fixed_timer:Float = 0;
+
 	@:allow(pirhana.Application)
 	private function update() {
 		frame.update();
 
-		for (screen in screens.screens) {
-			screen.permupdate(frame);
-		}
-
 		screens.current.update(frame);
 
+		// fixed updates at a fixed pace (pirhana.Application.FIXED_FPS)
+		fixed_timer += frame.tmod;
+		while (fixed_timer >= Application.FPS / Application.FIXED_FPS){
+			fixed_timer -= Application.FPS / Application.FIXED_FPS;
+			screens.current.fixedupdate();
+		}
+
+		// post updates are always updated
+		// we make it this way so animations can
+		// be played even if a new screen is put on top.
 		for (screen in screens.screens) {
 			screen.postupdate();
 		}
