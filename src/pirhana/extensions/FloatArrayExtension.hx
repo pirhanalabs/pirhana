@@ -21,4 +21,11 @@ class FloatArrayExtension{
         }
         return min;
     }
+
+    public static function normalize(a:Array<Float>){
+        var max = max(a);
+        for (i in 0 ... a.length){
+            a[i] /= max;
+        }
+    }
 }
