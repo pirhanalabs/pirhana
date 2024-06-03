@@ -13,7 +13,7 @@ class FloatArrayExtension{
     }
 
     public static function absmax(a:Array<Float>):Float{
-        var max = 0;
+        var max = 0.0;
         for (dat in a){
             if (Math.abs(dat) > max){
                 max = Math.abs(dat);
@@ -33,13 +33,13 @@ class FloatArrayExtension{
     }
 
     public static function normalize(a:Array<Float>, copy:Bool = false){
-        var max = absmax(a);
+        var maxx = absmax(a);
         for (i in 0 ... a.length){
-            a[i] += max;
+            a[i] += maxx;
         }
-        max = max(a);
+        maxx = max(a);
         for (i in 0 ... a.length){
-            a[i] /= max;
+            a[i] /= maxx;
         }
     }
 
