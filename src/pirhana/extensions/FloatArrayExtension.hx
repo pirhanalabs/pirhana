@@ -42,4 +42,16 @@ class FloatArrayExtension{
             a[i] /= max;
         }
     }
+
+    public static function sum(a:Array<Int>):Float{
+        var total = 0;
+        for (i in 0 ... a.length){
+            total += a[i];
+        }
+        return total;
+    }
+
+    public static function average(a:Array<Int>):Float{
+        return sum(a) / a.length;
+    }
 }
