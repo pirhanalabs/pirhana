@@ -3,7 +3,7 @@ package pirhana;
 class AssetBuilder
 {
 
-	public static function subTilesheet(sheet:h2d.Tile, tw:Int, th:Int, dx:Int = 0, dy:Int = 0)
+	public static function subTilesheet(sheet:h2d.Tile, tw:Int, th:Int, dx:Float = 0.0, dy:Float = 0.0)
 	{
 		return [
 			for (y in 0...Math.floor(sheet.height / th))
