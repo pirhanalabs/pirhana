@@ -68,7 +68,7 @@ class InputManager {
 	public var analogDeadzone:Float = 0.85;
 
 	// u, d, l, r
-	public var analogInputs:Array<Float> = [0.0, 0.0, 0.0, 0.0];
+	private var analogInputs:Array<Float> = [0.0, 0.0, 0.0, 0.0];
 
 	public function isAnalogPressed(id:Int) {
 		return analogInputs[id] == Game.instance.frame.frames - 1;
@@ -82,7 +82,8 @@ class InputManager {
 		return analogInputs[id] == -Game.instance.frame.frames;
 	}
 
-	public function update(frame:Frame) {
+	@:allow(pirhana.Game)
+	private function update(frame:Frame) {
 		// update analog inputs
 		if (pad.connected) {
 			var deadzone = pad.xAxis * pad.xAxis + pad.yAxis * pad.yAxis < analogDeadzone * analogDeadzone;
