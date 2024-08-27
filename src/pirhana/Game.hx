@@ -77,6 +77,7 @@ class Game {
 	private function update() {
 		frame.update();
 
+		inputs.update(frame);
 		screens.current.update(frame);
 
 		// fixed updates at a fixed pace (pirhana.Application.FIXED_FPS)
