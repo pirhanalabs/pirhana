@@ -35,8 +35,8 @@ class InputBinding {
 			if (manager.pad.isPressed(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding > 0) {
-				return manager.isAnalogPressed(analogBinding);
+			if (analogBinding > 0 && manager.isAnalogPressed(analogBinding)) {
+				return true;
 			}
 		}
 		return hxd.Key.isPressed(key);
@@ -47,8 +47,8 @@ class InputBinding {
 			if (manager.pad.isDown(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding > 0) {
-				return manager.isAnalogDown(analogBinding);
+			if (analogBinding > 0 && manager.isAnalogDown(analogBinding)) {
+				return true;
 			}
 		}
 		return hxd.Key.isDown(key);
@@ -59,11 +59,10 @@ class InputBinding {
 			if (manager.pad.isReleased(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding > 0) {
-				return manager.isAnalogReleased(analogBinding);
+			if (analogBinding > 0 && manager.isAnalogReleased(analogBinding)) {
+				return true;
 			}
 		}
 		return hxd.Key.isReleased(key);
 	}
 }
-
