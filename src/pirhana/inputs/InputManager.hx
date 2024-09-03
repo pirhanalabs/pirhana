@@ -108,9 +108,6 @@ class InputManager {
 			}
 		} else {
 			analogInputs[id] = analogInputs[id] > 0 ? -frame.frames : 0;
-			if (analogInputs[id] < 0) {
-				trace(id, analogInputs[id]);
-			}
 		}
 	}
 

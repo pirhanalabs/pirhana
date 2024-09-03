@@ -44,6 +44,9 @@ class Game {
 	/** Application window **/
 	public var window(get, null):hxd.Window;
 
+	/** Audio system **/
+	public var audio(default, null):AudioManager;
+
 	/**
 		Engine inspired heavily on ddmills' Odyssey.
 	**/
@@ -53,6 +56,7 @@ class Game {
 		layers = new RenderLayerManager();
 		screens = new ScreenManager();
 		inputs = new InputManager();
+		audio = new AudioManager();
 		frame = new Frame();
 		camera = new Camera();
 		app.s2d.addChild(layers.ob);
