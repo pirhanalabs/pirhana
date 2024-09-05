@@ -22,12 +22,12 @@ private class CooldownItem
 		pause = false;
 	}
 
-	public function thenS(id:String, seconds:Float, cb:Void->Void){
-		return thenF(id, seconds * fps, cb);
+	public function thenS(id:String, seconds:Float, upd:Float->Void, cb:Void->Void){
+		return thenF(id, seconds * fps, upd, cb);
 	}
 
-	public function thenF(id:String, frames:Float, cb:Void->Void){
-		onDone = new CooldownItem(id, frames, cb, fps);
+	public function thenF(id:String, frames:Float, upd:Float->Void, cb:Void->Void){
+		onDone = new CooldownItem(id, frames, upd, cb, fps);
 		return onDone;
 	}
 
@@ -60,7 +60,7 @@ class Cooldown
 
 	public function createF(id:String, frames:Int, ?upd:Float->Void, ?cb:Void->Void)
 	{
-		var cd = new CooldownItem(id, frames, upd == null ? emptyupd : upd, cb == null ? emptycb : cb, FPS);
+		var cd = new CooldownItem(id, frames, upd, cb, FPS);
 		cds.set(id, cd);
 		return cd;
 	}
@@ -160,10 +160,6 @@ class Cooldown
 		cds.clear();
 	}
 
-	private final function emptycb() {}
-
-	private final function emptyupd(r:Float){}
-
 	public function update(frame:Frame)
 	{
 		for (id => cd in cds)
@@ -188,7 +184,9 @@ class Cooldown
 
 	public function postupdate(){
 		for (id=>cd in cds){
-			cd.upd(cd.getRatio());
+			if (cd.upd != null){
+				cd.upd(cd.getRatio());
+			}
 		}
 	}
 }
