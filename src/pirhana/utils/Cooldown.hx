@@ -6,16 +6,18 @@ private class CooldownItem
 	public var cur:Float;
 	public var max:Float;
 	public var cb:Void->Void;
+	public var upd:Float->Void;
 	public var pause:Bool;
 	public var onDone:CooldownItem;
 	private var fps:Int;
 
-	public function new(id, frames, cb, fps = 60)
+	public function new(id, frames, upd, cb, fps = 60)
 	{
 		this.id = id;
 		this.cur = 0;
 		this.max = frames;
 		this.cb = cb;
+		this.upd = upd;
 		this.fps = fps;
 		pause = false;
 	}
@@ -56,16 +58,16 @@ class Cooldown
 		cds = new Map();
 	}
 
-	public function createF(id:String, frames:Int, ?cb:Void->Void)
+	public function createF(id:String, frames:Int, ?upd:Float->Void, ?cb:Void->Void)
 	{
-		var cd = new CooldownItem(id, frames, cb == null ? emptycb : cb, FPS);
+		var cd = new CooldownItem(id, frames, upd == null ? emptyupd : upd, cb == null ? emptycb : cb, FPS);
 		cds.set(id, cd);
 		return cd;
 	}
 
-	public function createS(id:String, seconds:Float, ?cb:Void->Void)
+	public function createS(id:String, seconds:Float, ?upd:Float->Void, ?cb:Void->Void)
 	{
-		return createF(id, Math.floor(seconds * FPS), cb);
+		return createF(id, Math.floor(seconds * FPS), upd, cb);
 	}
 
 	public function has(id:String)
@@ -92,7 +94,7 @@ class Cooldown
 		}
 	}
 
-	public function addS(id:String, seconds:Float, ratio:Bool)
+	public function addS(id:String, seconds:Float)
 	{
 		if (has(id))
 		{
@@ -160,8 +162,14 @@ class Cooldown
 
 	private final function emptycb() {}
 
+	private final function emptyupd(r:Float){}
+
 	public function update(frame:Frame)
 	{
+		for (id=>cd in cds){
+			cd.upd(cd.getRatio());
+		}
+
 		for (id => cd in cds)
 		{
 			if (cd.isCompleted())
@@ -174,12 +182,10 @@ class Cooldown
 					cd.cb();
 				}
 			}
-
 			if (cd.pause || cd.max < 0)
 			{
 				continue;
 			}
-
 			cd.cur += Math.pow(1, frame.tmod);
 		}
 	}
