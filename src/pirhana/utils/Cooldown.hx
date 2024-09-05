@@ -166,10 +166,6 @@ class Cooldown
 
 	public function update(frame:Frame)
 	{
-		for (id=>cd in cds){
-			cd.upd(cd.getRatio());
-		}
-
 		for (id => cd in cds)
 		{
 			if (cd.isCompleted())
@@ -187,6 +183,12 @@ class Cooldown
 				continue;
 			}
 			cd.cur += Math.pow(1, frame.tmod);
+		}
+	}
+
+	public function postupdate(){
+		for (id=>cd in cds){
+			cd.upd(cd.getRatio());
 		}
 	}
 }
