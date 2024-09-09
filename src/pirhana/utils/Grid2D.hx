@@ -18,6 +18,12 @@ class Grid2D<T>{
             ];
       }
 
+      public function each(fn:T->Void) {
+		for (element in grid) {
+			fn(element);
+		}
+	}
+
       public function inbounds(x:Int, y:Int){
             return x >= 0 && y >= 0 && x < wid && y < hei;
       }
