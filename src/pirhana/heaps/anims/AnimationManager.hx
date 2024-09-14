@@ -125,10 +125,27 @@ class AnimationManager
 			n.begin();
 		}
 
-		if (n.time / n.stime == 1)
+		var siblings = true;
+		if (n.siblings.length != 0)
 		{
-			n.completed = true;
+			for (s in n.siblings)
+			{
+				if (s.completed){
+					continue;
+				}
 
+				if (siblings){
+					siblings = n.completed;
+				}
+
+				updateNode(s, frame);
+			}
+		}
+
+		completed = siblings;
+
+		if (n.time / n.stime == 1 && completed)
+		{
 			if (n.child != null)
 			{
 				updateNode(n.child, frame);
@@ -141,14 +158,7 @@ class AnimationManager
 			n.ratio = n.tweenfn(n.time / n.stime);
 		}
 
-		if (n.siblings.length != 0)
-		{
-			for (s in n.siblings)
-			{
-				n.completed = n.completed && s.completed;
-				updateNode(s, frame);
-			}
-		}
+		
 	}
 
 	public function postupdate()
