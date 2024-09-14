@@ -69,7 +69,7 @@ class AnimationNode
             case SpikeEaseInOut:
                 tweenfn = Tween.spikeEaseInOut;
             case ElasticEaseIn:
-                tweenfn = Tween.elasticEaseIn
+                tweenfn = Tween.elasticEaseIn;
 			case ElasticEaseOut:
 				tweenfn = Tween.elasticEaseOut;
             case ElasticEaseInOut:
