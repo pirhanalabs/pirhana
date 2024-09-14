@@ -34,6 +34,10 @@ abstract Color(Int) from Int to Int
 				ratio)) << 16) | (Math.round(Tween.lerp(gi, to.gi, ratio)) << 8) | (Math.round(Tween.lerp(bi, to.bi, ratio)));
 	}
 
+	public inline function toVector(){
+		return new h3d.Vector(rf, gf, bf);
+	}
+
 	inline function get_ri()
 		return (this >> 16) & 0xFF;
 
