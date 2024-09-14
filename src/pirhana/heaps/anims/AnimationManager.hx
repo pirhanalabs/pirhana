@@ -152,7 +152,9 @@ class AnimationManager {
 
 		if (n.siblings.length != 0) {
 			for (s in n.siblings) {
-				postupdateNode(s);
+				if (!s.completed) {
+					postupdateNode(s);
+				}
 			}
 		}
 	}
