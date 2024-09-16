@@ -131,7 +131,7 @@ class AnimationHandler
 	}
 
 	public function getEvent(){
-		return AnimationNodeEvent(node);
+		return new AnimationNodeEvent(node);
 	}
 
 	private function parse(n:AnimationNode)
