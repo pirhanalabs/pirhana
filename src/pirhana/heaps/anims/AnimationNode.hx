@@ -15,12 +15,15 @@ class AnimationNode
 	public var child:Null<AnimationNode>;
 	public var siblings:Array<AnimationNode>;
 	public var completed:Bool;
+	public var paused:Bool;
 
 	public var tweenfn:Float->Float;
 	public var callback:Null<h2d.Object->Void>;
 
 	private function new(o:ObjectWrapper, stime:Float, ?tween:TweenType)
 	{
+		this.completed = false;
+		this.paused = false;
 		this.stime = stime;
 		this.time = 0;
 		this.ratio = 0;

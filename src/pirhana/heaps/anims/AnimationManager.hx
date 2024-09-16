@@ -100,6 +100,10 @@ class AnimationManager {
 	}
 
 	private function updateNode(n:AnimationNode, frame:Frame) {
+		if (n.paused){
+			return;
+		}
+		
 		if (n.completed && n.callback != null) {
 			n.callback(n.o.o);
 		}
@@ -144,6 +148,9 @@ class AnimationManager {
 	}
 
 	private function postupdateNode(n:AnimationNode) {
+		if (n.paused){
+			return;
+		}
 		n.postupdate();
 
 		if (n.time / n.stime == 1 && n.child != null && n.child.time != 0) {

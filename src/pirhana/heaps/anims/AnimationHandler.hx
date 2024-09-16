@@ -130,6 +130,10 @@ class AnimationHandler
 		return this;
 	}
 
+	public function getEvent(){
+		return AnimationNodeEvent(node);
+	}
+
 	private function parse(n:AnimationNode)
 	{
 		if (isafter)
