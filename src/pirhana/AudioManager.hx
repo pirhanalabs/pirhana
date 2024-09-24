@@ -33,9 +33,15 @@ class AudioManager{
         }
     }
 
-    public function playSound(snd:hxd.res.Sound){
-        snd.play(false, 1 * volumeSound);
-    }
+    public function playSound(snd:hxd.res.Sound) {
+		var s = snd.play(false, 1 * volumeSound);
+		#if js
+		// dont add pitch if js. Js sucks for pitch.
+		#else
+		// add pitch. sounds more natural
+		s.addEffect(new hxd.snd.effect.Pitch(MathTools.rand(0.8, 1.2)));
+		#end
+	}
 
     public function setMasterVolume(vol:Float){
         hxd.snd.Manager.get().masterVolume = vol;
