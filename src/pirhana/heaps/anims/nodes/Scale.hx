@@ -23,7 +23,6 @@ class Scale extends AnimationNode {
 
 	override function begin() {
 		super.begin();
-		trace(o.scaleX, o.scaleY);
 		sx = o.scaleX;
 		sy = o.scaleY;
 	}
