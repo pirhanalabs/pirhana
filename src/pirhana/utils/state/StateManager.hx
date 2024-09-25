@@ -1,5 +1,6 @@
 package pirhana.utils.state;
 
+
 class StateManager<T:IState> {
 	private var states:Array<T>;
 
@@ -58,10 +59,16 @@ class StateManager<T:IState> {
 	}
 
 	inline function get_current() {
+		if (states.length == 0) {
+			return null;
+		}
 		return states[states.length - 1];
 	}
 
 	inline function get_previous() {
+		if (states.length <= 1) {
+			return null;
+		}
 		return states[states.length - 2];
 	}
 
