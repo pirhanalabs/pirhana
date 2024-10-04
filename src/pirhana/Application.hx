@@ -115,12 +115,6 @@ class Application extends hxd.App {
 		hl.Api.setErrorHandler(onCrash);
 		#end
 
-		#if (hl && debug)
-		hxd.Res.initLocal();
-		#else
-		hxd.Res.initEmbed();
-		#end
-
 		// fix an audio bug/ sound chipping
 		haxe.MainLoop.add(() -> {});
 		// initialize the sound manager to avoid freeze on first sound playback.
