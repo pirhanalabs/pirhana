@@ -1,5 +1,7 @@
 package pirhana.inputs;
 
+import pirhana.utils.Direction;
+
 /**
 	Handles the input system of the game.
 	At the moment it only handles a single gamepad at a time (singleplayer).
@@ -68,18 +70,23 @@ class InputManager {
 	public var analogDeadzone:Float = 0.85;
 
 	// u, d, l, r
-	private var analogInputs:Array<Float> = [0.0, 0.0, 0.0, 0.0];
+	private var analogInputs:Map<Direction> = [
+		Up => 0.0, 
+		Down => 0.0, 
+		Left => 0.0, 
+		Right => 0.0
+	];
 
-	public function isAnalogPressed(id:Int) {
-		return analogInputs[id] == Game.instance.frame.frames - 1;
+	public function isAnalogPressed(dir:Direction) {
+		return analogInputs[dir] == Game.instance.frame.frames - 1;
 	}
 
-	public function isAnalogDown(id:Int) {
-		return analogInputs[id] > 0;
+	public function isAnalogDown(dir:Direction) {
+		return analogInputs[dir] > 0;
 	}
 
-	public function isAnalogReleased(id:Int) {
-		return analogInputs[id] == -Game.instance.frame.frames;
+	public function isAnalogReleased(dir:Direction) {
+		return analogInputs[dir] == -Game.instance.frame.frames;
 	}
 
 	@:allow(pirhana.Game)
@@ -88,26 +95,26 @@ class InputManager {
 		if (pad.connected) {
 			var deadzone = pad.xAxis * pad.xAxis + pad.yAxis * pad.yAxis < analogDeadzone * analogDeadzone;
 			if (deadzone) {
-				for (i in 0...analogInputs.length) {
-					analogInputs[i] = analogInputs[i] > 0 ? -frame.frames : 0;
+				for (direction=>value in 0...analogInputs.length) {
+					analogInputs[direction] = value > 0 ? -frame.frames : 0;
 				}
 			} else {
 				var a = MathTools.angle(0, 0, pad.xAxis, pad.yAxis);
-				parseAnalogInput(0, frame, a > -2.25 && a < -1.25);
-				parseAnalogInput(1, frame, a > 1.25 && a < 2.25);
-				parseAnalogInput(2, frame, Math.abs(a) >= 2.70);
-				parseAnalogInput(3, frame, Math.abs(a) <= 0.07);
+				parseAnalogInput(Up, frame, a > -2.25 && a < -1.25);
+				parseAnalogInput(Down, frame, a > 1.25 && a < 2.25);
+				parseAnalogInput(Left, frame, Math.abs(a) >= 2.70);
+				parseAnalogInput(Right, frame, Math.abs(a) <= 0.07);
 			}
 		}
 	}
 
-	private function parseAnalogInput(id:Int, frame:Frame, condition:Bool) {
+	private function parseAnalogInput(dir:Direction, frame:Frame, condition:Bool) {
 		if (condition) {
-			if (analogInputs[id] == 0) {
-				analogInputs[id] = frame.frames;
+			if (analogInputs[dir] == 0) {
+				analogInputs[dir] = frame.frames;
 			}
 		} else {
-			analogInputs[id] = analogInputs[id] > 0 ? -frame.frames : 0;
+			analogInputs[dir] = analogInputs[dir] > 0 ? -frame.frames : 0;
 		}
 	}
 
@@ -116,6 +123,12 @@ class InputManager {
 	**/
 	public function createBinding(id:Int, key:Int, button:PadButton) {
 		var binding = new InputBinding(this, id, key, button);
+		return binding;
+	}
+
+	public function createDirBinding(dir:Direction, key:Int, button:PadButton){
+		var binding = new InputBinding(this, id, key, button);
+		binding.direction = dir;
 		return binding;
 	}
 

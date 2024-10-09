@@ -1,5 +1,7 @@
 package pirhana.inputs;
 
+import pirhana.utils.Direction;
+
 class InputBinding {
 	public var id(default, null):Int;
 	public var key(default, null):Int = -1;
@@ -14,7 +16,7 @@ class InputBinding {
 
 		3 = Right
 	**/
-	public var analogBinding:Int = -1;
+	public var direction:Null<Direction> = null;
 
 	private var manager:InputManager;
 
@@ -35,7 +37,7 @@ class InputBinding {
 			if (manager.pad.isPressed(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding >= 0 && manager.isAnalogPressed(analogBinding)) {
+			if (direction != null && manager.isAnalogPressed(direction)) {
 				return true;
 			}
 		}
@@ -47,7 +49,7 @@ class InputBinding {
 			if (manager.pad.isDown(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding >= 0 && manager.isAnalogDown(analogBinding)) {
+			if (direction != null && manager.isAnalogDown(direction)) {
 				return true;
 			}
 		}
@@ -59,7 +61,7 @@ class InputBinding {
 			if (manager.pad.isReleased(manager.getPadButtonValue(button))) {
 				return true;
 			}
-			if (analogBinding >= 0 && manager.isAnalogReleased(analogBinding)) {
+			if (direction != null && manager.isAnalogReleased(direction)) {
 				return true;
 			}
 		}
