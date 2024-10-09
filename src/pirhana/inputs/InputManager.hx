@@ -70,7 +70,7 @@ class InputManager {
 	public var analogDeadzone:Float = 0.85;
 
 	// u, d, l, r
-	private var analogInputs:Map<Direction> = [
+	private var analogInputs:Map<Direction, Float> = [
 		Up => 0.0, 
 		Down => 0.0, 
 		Left => 0.0, 
