@@ -3,26 +3,13 @@ package pirhana.inputs;
 import pirhana.utils.Direction;
 
 class InputBinding {
-	public var id(default, null):Int;
 	public var key(default, null):Int = -1;
 	public var button(default, null):Null<PadButton>;
-
-	/**
-		0 = Up
-
-		1 = Down
-
-		2 = Left
-
-		3 = Right
-	**/
 	public var direction:Null<Direction> = null;
-
 	private var manager:InputManager;
 
 	@:allow(pirhana.inputs.InputManager)
-	private function new(c:InputManager, id:Int, key:Int, button:PadButton) {
-		this.id = id;
+	private function new(c:InputManager, key:Int, button:PadButton) {
 		this.manager = c;
 		this.key = key;
 		this.button = button;

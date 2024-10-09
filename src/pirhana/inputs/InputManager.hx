@@ -121,13 +121,13 @@ class InputManager {
 	/**
 		Creates and returns a new input binding.
 	**/
-	public function createBinding(id:Int, key:Int, button:PadButton) {
-		var binding = new InputBinding(this, id, key, button);
+	public function createBinding(key:Int, button:PadButton) {
+		var binding = new InputBinding(this, key, button);
 		return binding;
 	}
 
 	public function createDirBinding(dir:Direction, key:Int, button:PadButton){
-		var binding = new InputBinding(this, id, key, button);
+		var binding = new InputBinding(this, key, button);
 		binding.direction = dir;
 		return binding;
 	}
