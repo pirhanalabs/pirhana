@@ -95,7 +95,7 @@ class InputManager {
 		if (pad.connected) {
 			var deadzone = pad.xAxis * pad.xAxis + pad.yAxis * pad.yAxis < analogDeadzone * analogDeadzone;
 			if (deadzone) {
-				for (direction=>value in 0...analogInputs.length) {
+				for (direction=>value in analogInputs) {
 					analogInputs[direction] = value > 0 ? -frame.frames : 0;
 				}
 			} else {
