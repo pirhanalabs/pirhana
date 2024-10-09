@@ -6,8 +6,8 @@ enum abstract Direction(Int)
 
 	var Up = 1;
 	var Left = 4;
-	var Down = 6;
-	var Right = 9;
+	var Right = 6;
+	var Down = 9;
 
 	public var x(get, never):Int;
 	public var y(get, never):Int;
