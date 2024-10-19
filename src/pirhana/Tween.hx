@@ -91,6 +91,29 @@ class Tween{
         return lerp(bounceEaseIn(p), bounceEaseOut(p), p);
     }
 
+    public static function backEaseOut(p:Float){
+        final c1 = 1.70158;
+        final c2 = c1 + 1;
+        return 1 + c2 * pow(p-1, 3) + c1 * pow(p - 1, 2);
+    }
+
+    public static function backEaseIn(p:Float){
+        final c1 = 1.70158;
+        final c2 = c1 + 1;
+        return c2 * p * p * p - c1 * p * p;
+    }
+
+    /**
+        Creates a bezier curve. It is applied to a single axis at a time (x or y). call this on each to get a bezier curve point
+        @param p progress on the bezier curve
+        @param a first point on the bezier curve
+        @param b second point on the bezier curve
+        @param c third point on the bezier curve
+    **/
+    public static inline function bezier3(p:Float, a:Float, b:Float, c:Float){
+        return (1 - p)*(1 - p)*a + 2*(1 - p)*p*b + p*p*c;
+    }
+
     public static function flip(p:Float){
         return 1 - p;
     }
