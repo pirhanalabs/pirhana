@@ -87,6 +87,7 @@ class OptionList<T:OptionListItem> implements IOptionList
 		}else if (dir.y != 0){
 			return (rows > 1) && (warp || (dir.y < 0 && y < 0) || (dir.y > 0 && y < rows - 1));
 		}
+		return false;
 	}
 
 	private function delta(dx:Int, dy:Int, cb:T->Void)
