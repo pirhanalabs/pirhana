@@ -85,7 +85,7 @@ class OptionList<T:OptionListItem> implements IOptionList
 		if (dir.x != 0){
 			return (cols > 1) && (warp || (dir.x < 0 && x > 0) || (dir.x > 0 && x < cols - 1));
 		}else if (dir.y != 0){
-			return (rows > 1) && (warp || (dir.y < 0 && y < 0) || (dir.y > 0 && y < rows - 1));
+			return (rows > 1) && (warp || (dir.y < 0 && y > 0) || (dir.y > 0 && y < rows - 1));
 		}
 		return false;
 	}
