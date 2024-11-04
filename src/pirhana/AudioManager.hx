@@ -33,13 +33,16 @@ class AudioManager{
         }
     }
 
-    public function playSound(snd:hxd.res.Sound) {
+    public function playSound(snd:hxd.res.Sound, pitchVariance:Int = 0) {
 		var s = snd.play(false, 1 * volumeSound);
 		#if js
 		// dont add pitch if js. Js sucks for pitch.
 		#else
 		// add pitch. sounds more natural
-		s.addEffect(new hxd.snd.effect.Pitch(MathTools.rand(0.8, 1.2)));
+        if (pitchVariance > 0){
+            s.addEffect(new hxd.snd.effect.Pitch(MathTools.rand(1 - pitchVariance, 1 + pitchVariance)));
+        }
+		
 		#end
 	}
 
