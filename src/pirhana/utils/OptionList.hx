@@ -2,8 +2,7 @@ package pirhana.utils;
 
 using pirhana.extensions.IntExtension;
 
-interface IOptionList
-{
+interface IOptionList {
 	public function getCurrent():OptionListItem;
 	public function moveUp():Void;
 	public function moveDown():Void;
@@ -13,8 +12,7 @@ interface IOptionList
 	public function canMove(dir:pirhana.utils.Direction):Bool;
 }
 
-interface OptionListItem
-{
+interface OptionListItem {
 	var x(default, set):Float;
 	var y(default, set):Float;
 	function onActive():Void;
@@ -23,8 +21,7 @@ interface OptionListItem
 	function update(frame:Frame):Void;
 }
 
-class OptionList<T:OptionListItem> implements IOptionList
-{
+class OptionList<T:OptionListItem> implements IOptionList {
 	public var warp:Bool = false;
 
 	public var list:Array<T>;
@@ -38,92 +35,109 @@ class OptionList<T:OptionListItem> implements IOptionList
 	private var x(get, never):Int;
 	private var y(get, never):Int;
 
-	public function new(cols:Int = 1, rows:Int = 0)
-	{
+	public function new(cols:Int = 1, rows:Int = 0) {
 		this.cols = cols;
 		this.rows = rows;
 	}
 
-	public function setOptions(list:Array<T>, index:Int = 0)
-	{
+	public function setOptions(list:Array<T>, index:Int = 0) {
 		this.list = list;
 
-		for (i in 0...list.length)
-		{
+		for (i in 0...list.length) {
 			onAdded(list[i], getx(i), gety(i));
 		}
 
 		this.index = index;
 	}
 
-	public function getCurrent()
-	{
+	public function getCurrent() {
 		return current;
 	}
 
-	public function moveUp()
-	{
+	public function moveUp() {
 		delta(0, -1, onMoveUp);
 	}
 
-	public function moveDown()
-	{
+	public function moveDown() {
 		delta(0, 1, onMoveDown);
 	}
 
-	public function moveLeft()
-	{
+	public function moveLeft() {
 		delta(-1, 0, onMoveLeft);
 	}
 
-	public function moveRight()
-	{
+	public function moveRight() {
 		delta(1, 0, onMoveRight);
 	}
 
-	public function canMove(dir:pirhana.utils.Direction){
-		if (dir.x != 0){
-			return (cols > 1) && (warp || (dir.x < 0 && x > 0) || (dir.x > 0 && x < cols - 1));
-		}else if (dir.y != 0){
-			return (rows > 1) && (warp || (dir.y < 0 && y > 0) || (dir.y > 0 && y < rows - 1));
+	function inBounds(x:Int, y:Int) {
+		return x >= 0 && x < cols && y >= 0 && y < rows;
+	}
+
+	public function canMove(dir:pirhana.utils.Direction) {
+		if (dir.x != 0 && dir.y != 0) {
+			throw 'unsupported diagonals!';
+		}
+		if (warp) {
+			if ((dir.x != 0 && cols > 1) || (dir.y != 0 && rows > 1)) {
+				// validate the next in line is not yourself (means its alone!)
+				var xx = x;
+				var yy = y;
+				var target:T = null;
+				var cur = getCurrent();
+
+				do {
+					xx += dir.x;
+					yy += dir.y;
+					xx = wrapX(xx);
+					yy = wrapY(yy);
+					target = list[yy * cols + xx];
+				} while (target == null);
+
+				return cur != target;
+			}
+		}
+		if (inBounds(x + dir.x, y + dir.y)) {
+			if (list[(y + dir.y) * cols + x + dir.x] == null) {
+				return false;
+			}
+			return true;
 		}
 		return false;
 	}
 
-	private function delta(dx:Int, dy:Int, cb:T->Void)
-	{
+	private function wrapX(x:Int):Int {
+		return warp ? x.wrap(0, cols - 1) : x.clamp(0, cols - 1);
+	}
+
+	private function wrapY(y:Int):Int {
+		if (rows > 0) {
+			return warp ? y.wrap(0, rows - 1) : y.clamp(0, rows - 1);
+		} else {
+			return warp ? y.wrap(0, list.length - 1) : y.clamp(0, list.length - 1);
+		}
+	}
+
+	private function delta(dx:Int, dy:Int, cb:T->Void) {
 		var nx = x + dx;
 		var ny = y + dy;
 
-		if (rows > 0)
-		{
-			ny = warp ? ny.wrap(0, rows - 1) : ny.clamp(0, rows - 1);
-		}
-		else
-		{
-			ny = warp ? ny.wrap(0, list.length - 1) : ny.clamp(0, list.length - 1);
-		}
-
-		nx = warp ? nx.wrap(0, cols - 1) : nx.clamp(0, cols - 1);
+		ny = wrapY(ny);
+		nx = wrapX(nx);
 
 		index = ny * cols + nx;
 
-		if (getCurrent() == null)
-		{
-			if (warp)
-			{
+		if (getCurrent() == null) {
+			if (warp) {
 				delta(dx, dy, cb);
-			}
-			else
-			{
+			} else {
 				delta(dx * -1, dy * -1, null);
 			}
 
 			return;
 		}
 
-		if (cb != null)
-		{
+		if (cb != null) {
 			cb(current);
 		}
 	}
@@ -144,48 +158,39 @@ class OptionList<T:OptionListItem> implements IOptionList
 
 	public dynamic function onInactive(item:T) {}
 
-	public function select()
-	{
-		if (current != null)
-		{
+	public function select() {
+		if (current != null) {
 			current.onSelect();
 			onSelect(current);
 		}
 	}
 
-	public function update(frame:Frame)
-	{
+	public function update(frame:Frame) {
 		if (list == null)
 			return;
 
-		for (option in list)
-		{
+		for (option in list) {
 			option.update(frame);
 		}
 	}
 
-	private function getx(i:Int)
-	{
+	private function getx(i:Int) {
 		return i % cols;
 	}
 
-	private function gety(i:Int)
-	{
+	private function gety(i:Int) {
 		return Math.floor(i / cols);
 	}
 
-	inline function set_index(val:Int)
-	{
-		if (current != null)
-		{
+	inline function set_index(val:Int) {
+		if (current != null) {
 			current.onInactive();
 			onInactive(current);
 		}
 
 		index = val;
 
-		if (current != null)
-		{
+		if (current != null) {
 			current.onActive();
 			onActive(current);
 		}
@@ -193,18 +198,15 @@ class OptionList<T:OptionListItem> implements IOptionList
 		return index;
 	}
 
-	inline function get_current()
-	{
+	inline function get_current() {
 		return list[index];
 	}
 
-	inline function get_x()
-	{
+	inline function get_x() {
 		return cols > 1 ? index % cols : 0;
 	}
 
-	inline function get_y()
-	{
+	inline function get_y() {
 		return cols > 1 ? Math.floor(index / cols) : index;
 	}
 }
