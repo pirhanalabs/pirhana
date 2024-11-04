@@ -33,7 +33,7 @@ class AudioManager{
         }
     }
 
-    public function playSound(snd:hxd.res.Sound, pitchVariance:Int = 0) {
+    public function playSound(snd:hxd.res.Sound, pitchVariance:Float = 0) {
 		var s = snd.play(false, 1 * volumeSound);
 		#if js
 		// dont add pitch if js. Js sucks for pitch.
