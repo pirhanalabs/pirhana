@@ -56,14 +56,6 @@ class OptionList<T:OptionListItem> implements IOptionList
 		this.index = index;
 	}
 
-	public function canMove(dir:pirhana.utils.Direction){
-		if (dir.x != 0){
-			return (cols > 1) && (warp || (dir.x < 0 && x > 0) || (dir.x > 0 && x < cols - 1));
-		}else if (dir.y != 0){
-			return (rows > 1) && (warp || (dir.y < 0 && y < 0) || (dir.y > 0 && y < rows - 1));
-		}
-	}
-
 	public function getCurrent()
 	{
 		return current;
@@ -89,6 +81,14 @@ class OptionList<T:OptionListItem> implements IOptionList
 		delta(1, 0, onMoveRight);
 	}
 
+	public function canMove(dir:pirhana.utils.Direction){
+		if (dir.x != 0){
+			return (cols > 1) && (warp || (dir.x < 0 && x > 0) || (dir.x > 0 && x < cols - 1));
+		}else if (dir.y != 0){
+			return (rows > 1) && (warp || (dir.y < 0 && y < 0) || (dir.y > 0 && y < rows - 1));
+		}
+	}
+
 	private function delta(dx:Int, dy:Int, cb:T->Void)
 	{
 		var nx = x + dx;
@@ -106,6 +106,20 @@ class OptionList<T:OptionListItem> implements IOptionList
 		nx = warp ? nx.wrap(0, cols - 1) : nx.clamp(0, cols - 1);
 
 		index = ny * cols + nx;
+
+		if (getCurrent() == null)
+		{
+			if (warp)
+			{
+				delta(dx, dy, cb);
+			}
+			else
+			{
+				delta(dx * -1, dy * -1, null);
+			}
+
+			return;
+		}
 
 		if (cb != null)
 		{
