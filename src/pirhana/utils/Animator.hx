@@ -1,6 +1,6 @@
 package pirhana.utils;
 
-using extensions.FloatExtension;
+using pirhana.extensions.FloatExtension;
 
 typedef AnimElement =
 {
