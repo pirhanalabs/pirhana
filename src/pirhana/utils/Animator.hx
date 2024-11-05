@@ -1,5 +1,7 @@
 package pirhana.utils;
 
+using extensions.FloatExtension;
+
 typedef AnimElement =
 {
 	id:String,
@@ -39,7 +41,7 @@ class AnimGroup
 		return this;
 	}
 
-	@:allow(utils.Animator)
+	@:allow(pirhana.utils.Animator)
 	private function update(dt:Float)
 	{
 		done = true;
@@ -54,7 +56,7 @@ class AnimGroup
 		}
 	}
 
-	@:allow(utils.Animator)
+	@:allow(pirhana.utils.Animator)
 	private function postupdate()
 	{
 		for (anim in all)
@@ -66,7 +68,7 @@ class AnimGroup
 		}
 	}
 
-	@:allow(utils.Animator)
+	@:allow(pirhana.utils.Animator)
 	private function callback()
 	{
 		for (anim in all)
