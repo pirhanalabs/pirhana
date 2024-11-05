@@ -98,6 +98,8 @@ class Animator
 	var queue:List<AnimGroup>;
 	var curr:Null<AnimGroup>;
 
+	var count:Int = 0;
+
 	public function new()
 	{
 		queue = new List();
@@ -105,10 +107,15 @@ class Animator
 		map = [];
 	}
 
+	public function isAnimating(){
+		return count != 0;
+	}
+
 	public function addQueue()
 	{
 		var g = new AnimGroup();
 		queue.add(g);
+		count++;
 		return g;
 	}
 
@@ -132,6 +139,7 @@ class Animator
 
 		map.set(id, element);
 		anims.push(element);
+		count++;
 	}
 
 	function updateAnim(id:Int, frame:Frame)
@@ -159,6 +167,7 @@ class Animator
 			{
 				curr.callback();
 				curr = null;
+				count--;
 			}
 			else
 			{
@@ -186,10 +195,11 @@ class Animator
 			{
 				if (anim.cb != null)
 				{
-					anims.remove(anim);
-					map.remove(anim.id);
 					anim.cb();
 				}
+				anims.remove(anim);
+				map.remove(anim.id);
+				count--;
 			}
 			else
 			{
