@@ -55,19 +55,27 @@ class OptionList<T:OptionListItem> implements IOptionList {
 	}
 
 	public function moveUp() {
+		var old = index;
 		delta(0, -1, onMoveUp);
+		return index != old;
 	}
 
 	public function moveDown() {
+		var old = index;
 		delta(0, 1, onMoveDown);
+		return index != old;
 	}
 
 	public function moveLeft() {
+		var old = index;
 		delta(-1, 0, onMoveLeft);
+		return index != old;
 	}
 
 	public function moveRight() {
+		var old = index;
 		delta(1, 0, onMoveRight);
+		return index != old;
 	}
 
 	function inBounds(x:Int, y:Int) {
