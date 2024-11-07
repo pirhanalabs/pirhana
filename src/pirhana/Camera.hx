@@ -84,8 +84,8 @@ class Camera {
 	var scaleModY:Float = 0;
 
 	function scaleAnim(r:Float) {
-		camera.scaleX = 1 + Tween.lerp(1, scaleModX, Tween.spikeEaseIn(r));
-		camera.scaleY = 1 + Tween.lerp(1, scaleModY, Tween.spikeEaseIn(r));
+		camera.scaleX = 1 + Tween.lerp(0, scaleModX, Tween.spikeEaseIn(r));
+		camera.scaleY = 1 + Tween.lerp(0, scaleModY, Tween.spikeEaseIn(r));
 	}
 
 	public function scale(modx:Float, mody:Float, stime:Float) {
