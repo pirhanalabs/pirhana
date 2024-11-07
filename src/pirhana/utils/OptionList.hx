@@ -4,10 +4,10 @@ using pirhana.extensions.IntExtension;
 
 interface IOptionList {
 	public function getCurrent():OptionListItem;
-	public function moveUp():Void;
-	public function moveDown():Void;
-	public function moveLeft():Void;
-	public function moveRight():Void;
+	public function moveUp():Bool;
+	public function moveDown():Bool;
+	public function moveLeft():Bool;
+	public function moveRight():Bool;
 	public function select():Void;
 	public function canMove(dir:pirhana.utils.Direction):Bool;
 }
