@@ -119,6 +119,22 @@ class Animator
 		return g;
 	}
 
+	/**
+		Nameless animations cannot be cancelled, be warned.
+	**/
+	public function addNameless(stime:Float, anim:Float->Void, cb:Void->Void)
+	{
+		var element = {
+			id:'',
+			curtime:0.0,
+			maxtime:stime,
+			anim:anim,
+			cb:cb,
+		};
+		anims.push(element);
+		count++;
+	}
+
 	public function add(id:String, stime:Float, anim:Float->Void, cb:Void->Void)
 	{
 		var element =
