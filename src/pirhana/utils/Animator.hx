@@ -11,11 +11,14 @@ typedef AnimElement =
 	cb:Void->Void
 }
 
-class AnimGroup
+class AnimGroup implements pirhana.utils.state.IEventState
 {
 	var cb:Void->Void;
 	var all:Array<AnimElement> = [];
 	var done:Bool;
+
+	@:allow(pirhana.utils.Animator)
+	var finished:Bool = false;
 
 	public function new()
 	{
@@ -41,8 +44,7 @@ class AnimGroup
 		return this;
 	}
 
-	@:allow(pirhana.utils.Animator)
-	private function update(dt:Float)
+	public function update(frame:Frame)
 	{
 		done = true;
 
@@ -51,13 +53,12 @@ class AnimGroup
 			if (anim.curtime != anim.maxtime)
 			{
 				done = false;
-				anim.curtime = (anim.curtime + dt).clamp(0, anim.maxtime);
+				anim.curtime = (anim.curtime + frame.dt).clamp(0, anim.maxtime);
 			}
 		}
 	}
 
-	@:allow(pirhana.utils.Animator)
-	private function postupdate()
+	public function postupdate()
 	{
 		for (anim in all)
 		{
@@ -84,9 +85,15 @@ class AnimGroup
 		}
 	}
 
-	public function isDone()
-	{
+	public function onEnter() {}
+
+	@:allow(pirhana.utils.Animator)
+	private function isDone(){
 		return done;
+	}
+
+	public function isFinished():Bool {
+		return finished;
 	}
 }
 
@@ -181,13 +188,14 @@ class Animator
 		{
 			if (curr.isDone())
 			{
+				curr.finished = true;
 				curr.callback();
 				curr = null;
 				count--;
 			}
 			else
 			{
-				curr.update(frame.dt);
+				curr.update(frame);
 			}
 		}
 
