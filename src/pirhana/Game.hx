@@ -7,7 +7,7 @@ import pirhana.inputs.InputManager;
 	I have since then adapted it to my taste.
 	Check out their game at https://github.com/ddmills/odyssey/tree/master
 **/
-class Game {
+class Game extends pirhana.engine.Container{
 	/**
 		Singleton instance of Game
 	**/

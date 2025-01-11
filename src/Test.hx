@@ -6,6 +6,6 @@ class Test{
     }
 
     private final function new(){
-        
+        pirhana.Game.create(null);
     }
 }

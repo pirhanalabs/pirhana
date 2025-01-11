@@ -1,6 +1,7 @@
 package pirhana.inputs;
 
 import pirhana.utils.Direction;
+import pirhana.Game;
 
 /**
 	Handles the input system of the game.
