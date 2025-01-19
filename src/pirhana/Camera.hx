@@ -33,16 +33,19 @@ class Camera {
 	}
 
 	private var shakePower:Float;
+	private var wigglePower:Float;
 
 	public function new() {
-		timeout = new Timeout(0);
-		timeout.update();
-
 		animator = new pirhana.utils.Animator();
 	}
 
+	public function wiggle(seconds:Float, pow = 1.0) {
+		animator.add('wiggle', seconds, wiggleAnim, null);
+		wigglePower = pow;
+	}
+
 	public function shakeS(seconds:Float, pow = 1.0) {
-		timeout = new Timeout(seconds);
+		animator.add('shake', seconds, shakeAnim, null);
 		shakePower = pow;
 	}
 
@@ -68,20 +71,23 @@ class Camera {
 		camera.x -= bumpx;
 		camera.y -= bumpy;
 
-		// shakes
-		if (!timeout.isComplete) {
-			timeout.update();
-			camera.rotation = Math.sin(0.3 + frame.frames * 0.5) * (Math.PI * 0.008) * shakePower * (1 - timeout.progress);
-			camera.x += Math.cos(frame.frames * 1.1) * 2.5 * shakePower * (1 - timeout.progress);
-			camera.y += Math.sin(0.3 + frame.frames * 1.7) * 2.5 * shakePower * (1 - timeout.progress);
-		}
-
 		animator.update(frame);
 		animator.postupdate();
 	}
 
 	var scaleModX:Float = 0;
 	var scaleModY:Float = 0;
+
+	function wiggleAnim(r:Float) {
+		var frames = pirhana.Game.instance.frame.frames;
+		camera.rotation = Math.sin(0.3 + frames * 0.5) * (Math.PI * 0.008) * wigglePower * (1 - r);
+	}
+
+	function shakeAnim(r:Float) {
+		var frames = pirhana.Game.instance.frame.frames;
+		camera.x += Math.cos(frames * 1.1) * 2.5 * shakePower * (1 - r);
+		camera.y += Math.sin(0.3 + frames * 1.7) * 2.5 * shakePower * (1 - r);
+	}
 
 	function scaleAnim(r:Float) {
 		camera.scaleX = 1 + Tween.lerp(0, scaleModX, Tween.spikeEaseIn(r));
