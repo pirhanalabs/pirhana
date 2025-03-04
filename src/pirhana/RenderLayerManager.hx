@@ -13,6 +13,7 @@ enum RenderLayerType {
 
 class RenderLayerManager {
 	public var ob(default, null):h2d.Layers;
+	public var screen_shader_container(default, null):h2d.Object;
 	public var scroller(default, null):h2d.Layers;
 	public var screen(default, null):h2d.Layers;
 
@@ -36,12 +37,13 @@ class RenderLayerManager {
 	public function new() {
 		layers = new Map();
 		ob = new h2d.Layers();
+		screen_shader_container = new h2d.Object(ob);
 
-		cameraEffectsPlacer = new h2d.Object(ob);
+		cameraEffectsPlacer = new h2d.Object(screen_shader_container);
 		cameraEffects = new h2d.Object(cameraEffectsPlacer);
 		scrollerFix = new h2d.Object(cameraEffects);
 		scroller = new h2d.Layers(scrollerFix);
-		screen = new h2d.Layers(ob);
+		screen = new h2d.Layers(screen_shader_container);
 
 		var tile = h2d.Tile.fromColor(0, 1, 1, 1);
 		for (i in 0...4) {
