@@ -71,12 +71,17 @@ class Camera {
 		camera.x -= bumpx;
 		camera.y -= bumpy;
 
+		camera.scaleX = 1 + baseScaleModX;
+		camera.scaleY = 1 + baseScaleModY;
+
 		animator.update(frame);
 		animator.postupdate();
 	}
 
 	var scaleModX:Float = 0;
 	var scaleModY:Float = 0;
+	var baseScaleModX:Float = 0;
+	var baseScaleModY:Float = 0;
 
 	function wiggleAnim(r:Float) {
 		var frames = pirhana.Game.instance.frame.frames;
@@ -90,13 +95,18 @@ class Camera {
 	}
 
 	function scaleAnim(r:Float) {
-		camera.scaleX = 1 + Tween.lerp(0, scaleModX, Tween.spikeEaseIn(r));
-		camera.scaleY = 1 + Tween.lerp(0, scaleModY, Tween.spikeEaseIn(r));
+		camera.scaleX = 1 + baseScaleModX + Tween.lerp(0, scaleModX, Tween.spikeEaseIn(r));
+		camera.scaleY = 1 + baseScaleModY + Tween.lerp(0, scaleModY, Tween.spikeEaseIn(r));
 	}
 
 	public function scale(modx:Float, mody:Float, stime:Float) {
 		scaleModX = modx;
 		scaleModY = mody;
 		animator.add('scaleani', stime, scaleAnim, null);
+	}
+
+	public function setBaseScaleMod(modX:Float, modY:Float){
+		this.baseScaleModX = modX;
+		this.baseScaleModY = modY;
 	}
 }
