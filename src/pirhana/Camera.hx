@@ -110,6 +110,11 @@ class Camera {
 		this.baseScaleModY = modY;
 	}
 
+	public function addBaseScaleMod(modX:Float, modY:Float){
+		this.baseScaleModX += modX;
+		this.baseScaleModY += modY;
+	}
+
 	var previousBaseScaleX:Float = 0;
 	var previousBaseScaleY:Float = 0;
 
