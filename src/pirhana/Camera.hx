@@ -109,4 +109,18 @@ class Camera {
 		this.baseScaleModX = modX;
 		this.baseScaleModY = modY;
 	}
+
+	var previousBaseScaleX:Float = 0;
+	var previousBaseScaleY:Float = 0;
+
+	private function _resetBaseScaleAnim(r:Float){
+		baseScaleModX = previousBaseScaleX * (1 - r);
+		baseScaleModY = previousBaseScaleY * (1 - r);
+	}
+
+	public function resetBaseScaleAnim(seconds:Float){
+		previousBaseScaleX = modX;
+		previousBaseScaleY = modY;
+		animator.add('descaleani', seconds, _resetBaseScaleAnim, null);
+	}
 }
